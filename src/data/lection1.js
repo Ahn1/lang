@@ -1,6 +1,6 @@
 export default {
   text: [
-    ["Hallo", "Hallo"],
+    ["Hello", "Hallo"],
     ["my", "mein"],
     ["name", "Name"],
     ["is", "ist"],
@@ -19,6 +19,25 @@ export default {
     ["application", "Anwendung"],
     ["for", "zum"],
     ["learning", "lernen"],
-    ["languages", "Sprachen"]
+    ["languages", "Sprachen"],
+    ["But", "Aber"],
+    ["i", "ich"],
+    ["seriously", "ernsthaft"],
+    ["have", "habe"],
+    ["problems", "Probleme"],
+    ["finding", "(zu) finden"],
+    ["a", "einen"],
+    ["good", "gut"],
+    ["looking", "aussehenden"],
+    ["styling", "Aussehen"],
+    ["approach", "Ansantz"],
+    ["I", "Ich"],
+    ["need", "muss"],
+    ["to", "zu"],
+    ["find", "finden"],
+    ["something", "etwas"],
+    ["better", "besserer"],
+    ["for", "für"],
+    ["that", "das"]
   ]
 };

@@ -37,7 +37,7 @@ class Translator extends PureComponent {
       <div>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {this.state.words.map((w, i) => (
-            <Word onChange={this.onWordChanged} index={i} w={w} />
+            <Word onChange={this.onWordChanged} index={i} w={w} key={i} />
           ))}
         </div>
         <button onClick={this.createTranslation}>Erstellen</button>

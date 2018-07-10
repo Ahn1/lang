@@ -10,8 +10,8 @@ class Learnplayer extends PureComponent {
 
     return (
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {lection.text.map(w => (
-          <Word w={w} />
+        {lection.text.map((w,i) => (
+          <Word w={w} key={i}/>
         ))}
       </div>
     );
