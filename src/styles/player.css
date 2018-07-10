@@ -1,7 +1,24 @@
-.olBack {
+
+
+.playerword > .olBack {
   background-color: #8dff68;
 }
 
-.tlBack {
-  background-color: #c9ffb7;
+.playerword > .tlBack {
+  background-color: #8dff68;
+}
+
+.playerword:nth-of-type(2n) > .olBack {
+  background-color: #74d854;
+}
+
+.playerword:nth-of-type(2n) > .tlBack {
+  background-color: #74d854;
+}
+
+.playerword-active > .olBack {
+  background-color: orange
+}
+.playerword-active > .tlBack {
+  background-color: orange
 }
