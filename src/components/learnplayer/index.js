@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import Sound from "react-sound";
+import { Button } from 'semantic-ui-react'
 
 import defaultLection from "../../data/latin1";
 
@@ -47,13 +48,14 @@ class Learnplayer extends PureComponent {
     const { lection } = this.props;
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <div style={{ display: "flex", flexDirection: "column", height: "100%", background: "#dcf7cf" }}>
         <div
           style={{
             display: "flex",
             flexWrap: "wrap",
             maxWidth: "960px",
-            flexGrow: "1"
+            flexGrow: "1",
+            padding: "10px"
           }}
         >
           {lection.text.map((w, i) => (
@@ -75,13 +77,13 @@ class Learnplayer extends PureComponent {
           />
         </div>
 
-        <div style={{ height: "50px", background: "#eeeeff" }}>
+        <div style={{ background: "#eeeeff", padding: "10px" }}>
           {this.state.playing ? (
-            <button onClick={() => this.setState({ playing: false })}>
+            <Button onClick={() => this.setState({ playing: false })}>
               Stop
-            </button>
+            </Button>
           ) : (
-            <button onClick={this.onStartPlaying}>Play</button>
+            <Button onClick={this.onStartPlaying}>Play</Button>
           )}
         </div>
       </div>
