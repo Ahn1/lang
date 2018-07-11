@@ -15,8 +15,8 @@ class Learnplayer extends PureComponent {
       position: 0
     };
 
-    this.onPlaying = this.onPlaying.bind(this);
     this.onStartPlaying = this.onStartPlaying.bind(this);
+    this.onPositionChanged = this.onPositionChanged.bind(this);
   }
 
   onStartPlaying(e) {
@@ -24,43 +24,66 @@ class Learnplayer extends PureComponent {
   }
 
   onPlaying(e) {
-    const currentIndex = this.props.lection.text.findIndex((w, i) => {
-      if (w[2] > e.position + 500) {
-        return true;
-      }
+    this.setState({
+      activeIndex: this.getSelectedIndexByPosition(e.position),
+      position: e.position
     });
-    console.log(e.position, currentIndex);
-    this.setState({ activeIndex: currentIndex - 1, position: e.position });
+  }
+
+  onPositionChanged(position, wordSelectionDelay = 0) {
+    this.setState({
+      activeIndex: this.getSelectedIndexByPosition(position + wordSelectionDelay),
+      position: position
+    });
+  }
+
+  getSelectedIndexByPosition(position = this.state.position) {
+    return (
+      this.props.lection.text.findIndex((w, i) => w[2] > position) - 1
+    );
   }
 
   render() {
     const { lection } = this.props;
 
     return (
-      <div>
-        <div style={{ display: "flex", flexWrap: "wrap", maxWidth: "960px" }}>
+      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            maxWidth: "960px",
+            flexGrow: "1"
+          }}
+        >
           {lection.text.map((w, i) => (
-            <Word active={i === this.state.activeIndex} w={w} key={i} onClick={() => this.setState({position: w[2]})} />
+            <Word
+              active={i === this.state.activeIndex}
+              w={w}
+              key={i}
+              onClick={() => this.onPositionChanged(w[2])}
+            />
           ))}
 
           <Sound
             url={lection.audio}
-            playStatus={null}
-            onPlaying={this.onPlaying}
             playStatus={
               this.state.playing ? Sound.status.PLAYING : Sound.status.STOPPED
             }
-            onPlaying={this.onPlaying}
+            onPlaying={e => this.onPositionChanged(e.position, 500)}
             position={this.state.position}
           />
         </div>
-        {this.state.playing ? (
-          <button onClick={() => this.setState({ playing: false })}>
-            Stop
-          </button>
-        ) : (
-          <button onClick={this.onStartPlaying}>Play</button>
-        )}
+
+        <div style={{ height: "50px", background: "#eeeeff" }}>
+          {this.state.playing ? (
+            <button onClick={() => this.setState({ playing: false })}>
+              Stop
+            </button>
+          ) : (
+            <button onClick={this.onStartPlaying}>Play</button>
+          )}
+        </div>
       </div>
     );
   }

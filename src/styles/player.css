@@ -1,24 +1,24 @@
-
+// https://coolors.co/0d1f2d-c0c8cf-aba194-fae3e3-f7d4bc
 
 .playerword > .olBack {
-  background-color: #8dff68;
+  background-color: #060F15;
 }
 
 .playerword > .tlBack {
-  background-color: #8dff68;
+  background-color: #060F15;
 }
 
 .playerword:nth-of-type(2n) > .olBack {
-  background-color: #74d854;
+  background-color: #060F15;
 }
 
 .playerword:nth-of-type(2n) > .tlBack {
-  background-color: #74d854;
+  background-color: #060F15;
 }
 
 .playerword-active > .olBack {
-  background-color: orange
+  background-color: #F8DBC8;
 }
 .playerword-active > .tlBack {
-  background-color: orange
+  background-color: #F8DBC8
 }
