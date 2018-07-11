@@ -1,42 +1,36 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./styles/App.css";
 import "./styles/player.css";
 
-import Learnplayer from "./components/learnplayer/";
-import Translator from "./components/translator/";
-
-import lectionEdit from "./data/latin1";
-
+import Navigation from "./components/Navigation";
+import Index from "./components/contentindex/";
+import Lectionloader from "./components/learnplayer/Lectionloader";
+import Translator from "./components/translator/"
+// https://de.wikibooks.org/wiki/Latein/_Anf%C3%A4ngerkurs/_Lektionen/_Lektion_19
 class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App" style={{display: "flex",flexDirection: "column"}}>
-          <div>
-            <ul>
-              <li>
-                <Link to="/player">Player</Link>
-              </li>
-              <li>
-                <Link to="/translator">Übersetzer</Link>
-              </li>
-            </ul>
-          </div>
-
-          <div style={{ width: "100%", flexGrow:"1", position: "relative" }}>
+        <div
+          className="App"
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <Navigation />
+          <div
+            style={{
+              width: "100%",
+              flexGrow: "1",
+              display: "flex",
+              alignItems: "stretch",
+              alignContent: "stretch"
+            }}
+          >
             <Switch>
-              <Route path="/player" component={() => <Learnplayer />} />
-              <Route
-                path="/translator"
-                component={() => (
-                  <Translator
-                    lection={lectionEdit}
-                    text="Agricola sum et hodie in oppidum venio. Ibi Juliam expecto. Subito Marcus amicus appropinquat et rogat: 'Ubi Julia est?' Clamo: 'Non scio.' Subito Julia properat et clamat: 'Imperator venit.' Itaque populus clamat: 'Ave, Imperator!' Imperator agricolas multos in oppido esse scit et clamat: 'Servos multos habeo et populum rego.' Bonus est, itaque populus beatus est. Servi quoque beati sunt. Populi multi in oppido vivunt et vita in oppido magno bona est."
-                  />
-                )}
-              />
+              <Route path="/lection/*" component={Lectionloader} />
+              <Route path="/translator" component={() => <Translator text="Hannibal, cuius patria Carthago est, bellum adversus Romam gerit. Milites multi et animalia magna ei sunt, quae ex Africa sunt. Imperator Romanus magnam calamitatem sibi et populi metuit, quem regit. Is Hannibalem urbem Romam invadere credit. Itaque muros novos circa urbem aedificare sinit. Autem populus Carthaginis nullum auxilium mittit. Itaque Roma bellum conciliat." />} />
+              <Route path="/" component={() => <Index />} />
             </Switch>
           </div>
         </div>

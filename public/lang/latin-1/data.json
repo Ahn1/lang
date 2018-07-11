@@ -1,6 +1,8 @@
-export default {
-  audio: "/lang/latin1.wav",
-  text: [
+{
+  "title": "Simple latin Text 1",
+  "description": "Ein einfacher Text auf Latein. Gut zum einsteigen.",
+  "audio": "audio.wav",
+  "text": [
     ["Agricola", "Bauer", 0],
     ["sum", "ich-bin", 3698.299],
     ["et", "und", 4198.786],
@@ -73,4 +75,4 @@ export default {
     ["bona", "gut", 75698.071],
     ["est.", "es-ist'", 76198.08399999999]
   ]
-};
+}
