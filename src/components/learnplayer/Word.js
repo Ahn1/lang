@@ -1,8 +1,8 @@
 import React from "react";
 
-export default ({ w, active }) => {
+export default ({ w, active, onClick }) => {
   return (
-    <div className={`${!active ? "playerword" : "playerword-active"}`} style={{ marginTop: "15px", fontSize: "1.3em" }}>
+    <div onClick={onClick} className={`${!active ? "playerword" : "playerword-active"}`} style={{ marginTop: "15px", fontSize: "1.3em", cursor: "pointer" }}>
       <div className="olBack" style={{ padding: "3px" }}>
         {w[0]}
       </div>

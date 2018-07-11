@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import Sound from "react-sound";
 
-import defaultLection from "../../data/lection1";
+import defaultLection from "../../data/latin1";
 
 import Word from "./Word";
 
@@ -11,10 +11,12 @@ class Learnplayer extends PureComponent {
 
     this.state = {
       playing: false,
-      activeIndex: 0
+      activeIndex: 0,
+      position: 0
     };
 
     this.onPlaying = this.onPlaying.bind(this);
+    this.onStartPlaying = this.onStartPlaying.bind(this);
   }
 
   onStartPlaying(e) {
@@ -28,25 +30,37 @@ class Learnplayer extends PureComponent {
       }
     });
     console.log(e.position, currentIndex);
-    this.setState({ activeIndex: currentIndex - 1 });
+    this.setState({ activeIndex: currentIndex - 1, position: e.position });
   }
 
   render() {
     const { lection } = this.props;
 
     return (
-      <div style={{ display: "flex", flexWrap: "wrap", maxWidth: "960px" }}>
-        {lection.text.map((w, i) => (
-          <Word active={i == this.state.activeIndex} w={w} key={i} />
-        ))}
+      <div>
+        <div style={{ display: "flex", flexWrap: "wrap", maxWidth: "960px" }}>
+          {lection.text.map((w, i) => (
+            <Word active={i === this.state.activeIndex} w={w} key={i} onClick={() => this.setState({position: w[2]})} />
+          ))}
 
-        <Sound
-          url={lection.audio}
-          playStatus={null}
-          onPlaying={this.onPlaying}
-          playStatus={this.state.playing || Sound.status.PLAYING}
-          onPlaying={this.onPlaying}
-        />
+          <Sound
+            url={lection.audio}
+            playStatus={null}
+            onPlaying={this.onPlaying}
+            playStatus={
+              this.state.playing ? Sound.status.PLAYING : Sound.status.STOPPED
+            }
+            onPlaying={this.onPlaying}
+            position={this.state.position}
+          />
+        </div>
+        {this.state.playing ? (
+          <button onClick={() => this.setState({ playing: false })}>
+            Stop
+          </button>
+        ) : (
+          <button onClick={this.onStartPlaying}>Play</button>
+        )}
       </div>
     );
   }

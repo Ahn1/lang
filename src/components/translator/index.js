@@ -10,12 +10,21 @@ class Translator extends PureComponent {
 
     this.playPosition = 0;
     this.state = {
-      words: this.props.text.split(/\W/).filter(o => o.length > 0),
+      words: this.props.text.split(/\s/).filter(o => o.length > 0),
       playing: false,
       mapPosition: 1
     };
     this.state.translation = new Array(this.state.words.length);
-    this.mappings = new Array(this.state.words.length)
+    this.mappings = new Array(this.state.words.length);
+
+    if (this.props.lection) {
+      this.state = {
+        words: this.props.lection.text.map(o => o[0]),
+        translation: this.props.lection.text.map(o => o[1]),
+        playing: false,
+        mapPosition: 1
+      };
+    }
 
     this.createTranslation = this.createTranslation.bind(this);
     this.onWordChanged = this.onWordChanged.bind(this);
@@ -43,7 +52,7 @@ class Translator extends PureComponent {
 
   onStartRecording() {
     this.playPosition = 0;
-    this.mappings = new Array(this.state.words.length)
+    this.mappings = new Array(this.state.words.length);
     this.setState({
       playing: Sound.status.PLAYING,
       mapPosition: 1
@@ -57,8 +66,7 @@ class Translator extends PureComponent {
 
     this.createTranslation();
 
-    this.setState({mapPosition: this.state.mapPosition + 1})
-
+    this.setState({ mapPosition: this.state.mapPosition + 1 });
   }
 
   render() {
@@ -66,18 +74,25 @@ class Translator extends PureComponent {
       <div onKeyUp={e => e.keyCode != 39 || this.onPressNextWord()}>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {this.state.words.map((w, i) => (
-            <Word active={this.state.playing && this.state.mapPosition == i +1} onChange={this.onWordChanged} index={i} w={w} key={i} />
+            <Word
+              active={this.state.playing && this.state.mapPosition == i + 1}
+              onChange={this.onWordChanged}
+              index={i}
+              w={w}
+              key={i}
+              defaultValue={this.state.translation[i]}
+            />
           ))}
         </div>
 
         <button onClick={this.onStartRecording}>Audio mappen</button>
 
         <Sound
-          url="/lection1.wav"
+          url="/lang/latin1.wav"
           playStatus={null}
           onPlaying={this.onPlaying}
           playStatus={this.state.playing || Sound.status.STOPPED}
-          onPlaying={(e => this.playPosition = e.position)}
+          onPlaying={e => (this.playPosition = e.position)}
         />
 
         <div>
